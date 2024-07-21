@@ -8,7 +8,7 @@ const VerifyAccount = () => {
     const params = useParams<{username:string}>();
   return (
     <div>
-      
+      {params.username}
     </div>
   )
 }

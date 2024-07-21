@@ -5,16 +5,16 @@ import { ADMIN, DEALER, USERID, WHEREHOUSE } from "@/Generaters/UsetIDGenerater"
 
 export async function POST(request: Request) {
     try {
-        const { UserName, Email, Password, Address, PhoneNumber, Role } = await request.json();
+        const { UserName, Email, Password, Address, PhoneNumber, role } = await request.json();
         const passwordToHash = Password || "Landson@123";    
         const normalizedEmail = Email.toLowerCase();
         console.log(normalizedEmail);//query passing
         
         // Correct field name: isVerified
-        const existingUserEmail = await db.userAccounts.findUnique({
+        const existingUserEmail = await db.userAccounts.findFirst({
             where: {
                 Email:normalizedEmail,
-                // isVerfied: true // Ensure this matches the field name in your schema
+            //isVerfied:true // Ensure this matches the field name in your schema
             }
         });
 console.log(existingUserEmail);
@@ -30,11 +30,11 @@ console.log(existingUserEmail);
             expiryDate.setHours(expiryDate.getHours() + 1);
 
             let userId;
-            if (Role === 'DEALER') {
+            if (role === 'DEALER') {
                 userId = DEALER("LSD");
-            } else if (Role === 'WAREHOUSE') {
+            } else if (role === 'WAREHOUSE') {
                 userId = WHEREHOUSE("LSW");
-            } else if (Role === 'ADMIN') {
+            } else if (role === 'ADMIN') {
                 userId = ADMIN("LSA");
             } else {
                 userId = USERID("LSU");
@@ -51,7 +51,7 @@ console.log(existingUserEmail);
                     Password: hashedPassword,
                     Address,
                     PhoneNumber,
-                    Role: Role || "USER", // Ensure Role is a string
+                    role: role || "USER", // Ensure Role is a string
                     UserId: userId,
                     VerifyCode: generate6DigitCode(),
                     VerifyCodeExpairy: expiryDate

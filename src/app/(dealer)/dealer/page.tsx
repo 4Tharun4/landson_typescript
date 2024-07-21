@@ -11,9 +11,9 @@ const AdminPage = () => {
   useEffect(() => {
     if (status === 'loading') return; // Do nothing while loading
 
-    if (status === 'unauthenticated' || session?.user?.role !== 'ADMIN') {
+    if (status === 'unauthenticated' || session?.user?.role !== 'DEALER') {
       console.log('Redirecting, role:', session?.user?.role);
-      router.push('/unauthorized');
+      router.push('/unauthorized'); 
     }
   }, [session, status, router]);
 

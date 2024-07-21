@@ -11,7 +11,7 @@ export async function sendverificationmail(
 
     try {
         const { data, error } = await resend.emails.send({
-            from: 'Acme <onboarding@resend.dev>',
+            from: 'reddy@tharun.world',
             to: Email,
             subject: 'Verification Code Of Your Landson Account',
             react: VerificationEmail({UserName,Otp:VerifyCode}),

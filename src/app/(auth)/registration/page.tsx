@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation'
 import { Registrations } from '@/app/validation/registration'
 import { ApiResponse } from '@/types/ApiResponse'
 import toast, { Toaster } from 'react-hot-toast';
+
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -68,8 +69,9 @@ const Registration = () => {
     <div className=' flex justify-center  w-full items-center h-dvh '>
       <div className=" w-[50%]  max-h-full rounded-lg bg-green-400">
 <div className=" px-4 py-4 ">
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+    <Form {...form} >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8  ">
+      
         <FormField
           control={form.control}
           name="UserName"
@@ -77,8 +79,11 @@ const Registration = () => {
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} 
-                
+                <Input placeholder="Enter The UserName" {...field} 
+                onChange={(e)=>{
+                  field.onChange(e)
+                  setUserName(e.target.value);
+                }}
                 />
               </FormControl>
               <FormDescription>
@@ -88,6 +93,7 @@ const Registration = () => {
             </FormItem>
           )}
         />
+        
             <FormField
           control={form.control}
           name="Email"
@@ -100,7 +106,7 @@ const Registration = () => {
                 />
               </FormControl>
               <FormDescription>
-                This is your public display name.
+                
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -160,6 +166,7 @@ const Registration = () => {
             </FormItem>
           )}
         />
+        
             
          
         <Button type="submit" disabled={issubmitting}>
