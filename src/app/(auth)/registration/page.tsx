@@ -179,6 +179,9 @@ const Registration = () => {
             ):('Register')
           }
         </Button>
+
+        <Link href={'/login'} ><Button >Login
+        </Button></Link>
       </form>
     </Form>
     </div>

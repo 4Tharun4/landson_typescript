@@ -10,12 +10,18 @@ export async function sendverificationmail(
 ):Promise<ApiResponse>{
 
     try {
-        const { data, error } = await resend.emails.send({
-            from: 'reddy@tharun.world',
+        const data  = await resend.emails.send({
+            from: `reddy@tharun.world`,
             to: Email,
             subject: 'Verification Code Of Your Landson Account',
             react: VerificationEmail({UserName,Otp:VerifyCode}),
           });
+          console.log(VerifyCode);
+          console.log(Email);
+          console.log(UserName);
+          
+          
+          
         return {
             success:true,message:'Verification Email Send Scussfully'
         }

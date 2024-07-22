@@ -1,60 +1,57 @@
+// /src/app/api/verify-code/route.ts
+import { NextResponse } from 'next/server';
 import db from "@/lib/db";
 
-export async function POST(request:Request){
+export async function POST(request: Request) {
     try {
-        const {UserName,Code}= await request.json();
-        const decoded = decodeURIComponent(UserName);
-        const user =  await db.userAccounts.findFirst({
-           where:{
-            UserName:decoded
-           }
+        const { username, Code } = await request.json();
+        const decodedUsername = decodeURIComponent(username);
+        const user = await db.userAccounts.findFirst({
+            where: {
+                UserName: decodedUsername
+            }
+        });
 
-
-        })
-
-        if(!user){
-            return new Response(JSON.stringify({
-                success:false,
-                message: "No user Found to Verfiy "
-            }), { status: 500 });
+        if (!user) {
+            return NextResponse.json({
+                success: false,
+                message: "No user found to verify"
+            }, { status: 404 });
         }
-            const isCodevaid = user.VerifyCode===Code;
-            const Iscodenotexpried = new Date(user.VerifyCodeExpairy)> new Date()
-        if(isCodevaid && Iscodenotexpried){
-       await db.userAccounts.update({
-        where:{
-            id:user.id
-        },
-        data:{
-            isVerfied:true
-        }
-    
 
-       })
-       return Response.json({
-        success:true,
-        message:"Verified sucssfully"
+        const isCodeValid = user.VerifyCode === Code;
+        const isCodeNotExpired = new Date(user.VerifyCodeExpairy) > new Date();
 
-       },{status:200})
-        }else if(!Iscodenotexpried){
-            return Response.json({
-                success:false,
-                message:"Verification code Expried"
-        
-               },{status:400})
-        }else{
-            return Response.json({
-                success:false,
-                message:"Code Is Broken "
-        
-               },{status:400})
+        if (isCodeValid && isCodeNotExpired) {
+            await db.userAccounts.update({
+                where: {
+                    id: user.id
+                },
+                data: {
+                    isVerified: true
+                }
+            });
+
+            return NextResponse.json({
+                success: true,
+                message: "Verified successfully"
+            }, { status: 200 });
+        } else if (!isCodeNotExpired) {
+            return NextResponse.json({
+                success: false,
+                message: "Verification code expired"
+            }, { status: 400 });
+        } else {
+            return NextResponse.json({
+                success: false,
+                message: "Invalid verification code"
+            }, { status: 400 });
         }
     } catch (error) {
-        console.error('Error Verfiy user', error);
-        return new Response(JSON.stringify({
+        console.error('Error verifying user', error);
+        return NextResponse.json({
             success: false,
-            message: "Error Verfiy user"
-        }), { status: 500 });
-        
+            message: "Error verifying user"
+        }, { status: 500 });
     }
 }

@@ -21,7 +21,7 @@ export default function RootLayout({
       <body className={inter.className}>
       <div className=" flex  ">
         <div className=" w-64   bg-green-300 ">
-          <Slidebar/>
+         
         </div>
         <div className=" w-full">
           <div className="   w-full z-50 ">

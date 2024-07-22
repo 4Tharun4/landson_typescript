@@ -8,16 +8,16 @@ export async function POST(request: Request) {
         const { UserName, Email, Password, Address, PhoneNumber, role } = await request.json();
         const passwordToHash = Password || "Landson@123";    
         const normalizedEmail = Email.toLowerCase();
-        console.log(normalizedEmail);//query passing
+    //query passing
         
         // Correct field name: isVerified
         const existingUserEmail = await db.userAccounts.findFirst({
             where: {
                 Email:normalizedEmail,
-            //isVerfied:true // Ensure this matches the field name in your schema
+        isVerified:false // Ensure this matches the field name in your schema
             }
         });
-console.log(existingUserEmail);
+
 
         if (existingUserEmail) {
             return new Response(JSON.stringify({
@@ -58,12 +58,27 @@ console.log(existingUserEmail);
                 }
             });
 
-            await sendverificationmail(newUser.Email, newUser.UserName, newUser.UserId);
+            const SendEmail =    await sendverificationmail(newUser.UserName, newUser.VerifyCode, newUser.Email); 
+console.log(newUser.Email);
+console.log(newUser.VerifyCode);
+console.log(newUser.UserName);
+
+
+
+            if(!SendEmail.success){
+                return new Response(JSON.stringify({
+                    success: false,
+                    message: SendEmail.message
+                }), { status: 500 });
+                
+            }
 
             return new Response(JSON.stringify({
                 success: true,
                 message: "User registered successfully. Please check your email for verification."
             }), { status: 200 });
+
+       
         }
     } catch (error) {
         console.error('Error registering user', error);

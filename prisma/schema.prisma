@@ -25,8 +25,8 @@ model userAccounts{
   id String @id @default(auto()) @map("_id") @db.ObjectId
   Email String @unique
   Password String
-  UserId String
-  isVerfied Boolean @default(false)
+  UserId String 
+  isVerified Boolean @default(false)
   VerifyCode String
   VerifyCodeExpairy DateTime
   Address String
