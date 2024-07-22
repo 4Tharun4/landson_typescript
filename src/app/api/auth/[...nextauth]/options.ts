@@ -28,7 +28,7 @@ export const authOptions: AuthOptions = {
             throw new Error("No user found. Please register.");
           }
 
-          if (!user.isVerfied) {
+          if (!user.isVerified) {
             throw new Error("Please verify your account first.");
           }
 
@@ -42,7 +42,7 @@ export const authOptions: AuthOptions = {
           return {
             _id: user.id,
             UserId: user.UserId,
-            isVerfied: user.isVerfied,
+            isVerfied: user.isVerified,
             UserName: user.UserName,
             role: user.role,
           };
@@ -61,7 +61,7 @@ export const authOptions: AuthOptions = {
         token.UserName = user.UserName || '';
         token.role = user.role || '';
       }
-      console.log("JWT Callback - Token:", token);
+     
       return token;
     },
 
@@ -75,7 +75,7 @@ export const authOptions: AuthOptions = {
           role: token.role as string,
         };
       }
-      console.log("Session Callback - Session:", session);
+   
       return session;
     },
   },
