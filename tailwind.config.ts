@@ -1,12 +1,13 @@
 import type { Config } from "tailwindcss"
-
-const config = {
+import { withUt } from "uploadthing/tw";
+export default withUt({
   darkMode: ["class"],
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
+  
 	],
   prefix: "",
   theme: {
@@ -18,6 +19,12 @@ const config = {
       },
     },
     extend: {
+      fontFamily:{
+       "primary":["Poppins","sans-serif"]
+      },
+      screens:{
+       "Mobile":{max:"640px"}
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -74,7 +81,7 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require('flowbite/plugin')],
 } satisfies Config
 
-export default config
+)

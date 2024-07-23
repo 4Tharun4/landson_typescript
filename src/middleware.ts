@@ -13,7 +13,7 @@ export async function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
 
   console.log("Requested URL:", url.pathname);
-  console.log("User Role:", role);
+
 
   // Convert role to lowercase for case-insensitive comparison
   const normalizedRole = role ? role.toLowerCase() : '';
@@ -47,6 +47,5 @@ export const config = {
     '/dashboard/:path*',
     '/wherehouse/:path*',
     '/dealer/:path*',
-    '/'
-  ],
+      ],
 };

@@ -36,3 +36,14 @@ model userAccounts{
   updatedAt DateTime @updatedAt
   role String @default("USER") 
 }
+model products{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+   DealerPrice String
+    Description String
+     Price String
+      SellingPrice String
+      Title String @unique
+       imageUrls  String[]
+        createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

@@ -6,7 +6,7 @@ export default function Component() {
   if (session) {
     return (
       <>
-        Signed in as {session.user.UserName} <br />
+       Welcome  {session.user.UserName} <br />
         <button onClick={() => signOut()}>Sign out</button>
       </>
     )
@@ -14,7 +14,10 @@ export default function Component() {
   return (
     <>
       Not signed in <br />
-      <button onClick={() => signIn()}>Sign in</button>
+      <div className=" m-4">
+      <button  className="bg-black rounded-lg  text-white p-2" onClick={() => signIn()}>Login Please</button>
+      </div>
+      
     </>
   )
 }

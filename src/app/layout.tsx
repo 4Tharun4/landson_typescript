@@ -19,8 +19,10 @@ export default function RootLayout({
     <html lang="en">
           <Provider>
       <body className={inter.className}>
-    
-        {children}
+    <div className=" font-primary">
+    {children}
+    </div>
+       
      
         </body>
         </Provider>
