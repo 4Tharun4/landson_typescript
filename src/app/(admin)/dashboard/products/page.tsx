@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 import New from './new/page';
 import Link from 'next/link';
 
-const page = () => {
+const Page = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const addproduct=()=>{
@@ -37,4 +37,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

@@ -46,13 +46,13 @@ const ImageInput: React.FC<ImageInputProps> = ({ name, label, endpoint, classNam
       <div className=" flex gap-4 mt-4    mb-5 overflow-x-auto">
       {imageUrls.map((url, index) => (
         // <img key={index} src={url} alt={`uploaded-${index}`} className="uploaded-image" />
-        <div className=" ">
+       
          
         <div className="uploaded-image   ">
           <Image src={url} key={index} alt={`upload-${index}`} width={100} height={100} className=' w-full overflow-x-auto h-32 rounded-lg shadow-lg  '/> 
           </div>
           
-        </div>
+      
       ))}
       </div>
     </div>
