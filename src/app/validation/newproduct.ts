@@ -7,6 +7,7 @@ export const formSchema = z.object({
   SellingPrice: z.string().min(1, 'Selling  is required'),
   DealerPrice: z.string().min(1, 'Dealer Price  is required'),
   Description:z.string().min(1,'Description  is required'),
+  imageUrls: z.array(z.string()).optional(), 
 
 });
 
