@@ -7,7 +7,7 @@ import Navbar from '@/components/Navbar';
 import { useState, useEffect } from 'react';
 
 const inter = Inter({ subsets: ['latin'] });
-import { EdgeStoreProvider } from '@/lib/edgestore';
+
 
 export default function RootLayout({
   children,
@@ -78,7 +78,7 @@ export default function RootLayout({
               <Navbar />
             </header>
             <main className="flex-1 p-4 bg-green-300">
-              <EdgeStoreProvider>{children}</EdgeStoreProvider></main>
+              {children}</main>
           </div>
         </div>
       </body>
