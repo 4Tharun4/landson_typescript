@@ -8,6 +8,8 @@ export const formSchema = z.object({
   DealerPrice: z.string().min(1, 'Dealer Price  is required'),
   Description:z.string().min(1,'Description  is required'),
   imageUrls: z.array(z.string()).optional(), 
+  category:z.string(),
+  Type:z.string()
 
 });
 

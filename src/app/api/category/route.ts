@@ -1,6 +1,7 @@
 
 import db from "@/lib/db";
 import bcrypt from 'bcrypt';
+import { NextResponse } from "next/server";
 
 
 export async function POST(request: Request) {
@@ -8,7 +9,7 @@ export async function POST(request: Request) {
 
 
     try {
-        const { DealerPrice, Description, Price, SellingPrice, Title, imageUrls,category,Type } = await request.json();
+        const { name ,imageUrls } = await request.json();
         
         //query passing
             
@@ -16,14 +17,14 @@ export async function POST(request: Request) {
            
     
             
-                const newproduct = await db.products.create({
+                const newcategory = await db.category.create({
                     data: {
-                        DealerPrice, Description, Price, SellingPrice, Title, imageUrls,category,Type
+                        name ,imageUrls
                     }
                 });
                 return new Response(JSON.stringify({
                     success: true,
-                    message: "Product Upload  Sucssfuly."
+                    message: "Category Created  Sucssfully."
                 }), { status: 200 });
     
            
@@ -37,3 +38,17 @@ export async function POST(request: Request) {
             }
         
     } 
+
+
+    export async function GET(request: any){
+        try {
+            const Categories = await db.category.findMany();
+            return NextResponse.json(Categories);
+        } catch (error) {
+            console.log(error);
+            return NextResponse.json({
+                message:"Failed To Featch Dealers",
+                error
+            },{status:500})
+        }
+      }

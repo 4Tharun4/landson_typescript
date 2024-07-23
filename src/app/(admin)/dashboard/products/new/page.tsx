@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { formSchema, FormSchemaType } from '@/app/validation/newproduct'; // Import the schema and type
@@ -8,36 +8,80 @@ import TextArea from '@/components/FormInputs/TextArea';
 import ImageInput from '@/components/FormInputs/Image';
 import { ApiResponse } from '@/types/ApiResponse';
 import axios from 'axios';
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+
 
 import toast from 'react-hot-toast';
+import Select from '@/components/FormInputs/Select';
 
-const MyForm: React.FC = () => {
+const MyForm: React.FC =  () => {
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch('/api/category');
+        
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        Setcategory(data);
+        
+      } catch (error) {
+        console.error("Error fetching users:", error);
+        
+      } finally {
+      
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+
+
+
+ const types =[
+  {
+    id:1,
+    name:"Product"
+  },
+  {
+    id:2,
+    name:"Spares"
+  },
+  
+ ] 
+
+ const[categories,Setcategory] = useState([]);
+
+
+ 
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [issubmitting,setissubmitting] = useState(false);
-  const { register, handleSubmit, formState: { errors } } = useForm<FormSchemaType>({
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema)
   });
 
   const onSubmit: SubmitHandler<FormSchemaType> = async (data) => {
-    data.imageUrls = imageUrls
-    console.log(data);
-
-    setissubmitting(true)
-    try {
-     const response =  await axios.post<ApiResponse>('/api/productupload',data);
-      console.log(response);
-    toast.success("Producted Updated Scussfully");
-
+   
     
-  setissubmitting(false)
-     
-    } catch (error) {
-      console.log("error in sign up",error);
-      toast.error("Some thing went wrong")
-      
-    }
+    data.imageUrls = imageUrls;
 
+    setissubmitting(true);
+    try {
+      const response = await axios.post<ApiResponse>(`/api/productupload`, data);
+      console.log("Response:", response);
+      if (response.status >= 200 && response.status < 300) {
+        reset(); // Reset the form fields
+        setImageUrls([]); // Reset the image URLs
+        toast.success('Product uploaded successfully');
+      }
+    } catch (error) {
+      console.log("Error in product upload", error);
+      toast.error("Something went wrong");
+    } finally {
+      setissubmitting(false);
+    }
     
   };
 
@@ -77,6 +121,8 @@ const MyForm: React.FC = () => {
             register={register}
             error={errors.DealerPrice?.message}
           />
+          <Select name='Type' label='Select Product Type' register={register} data={types} className=''/>
+          <Select name='category' label='Select Category Type' register={register} data={categories} className=''/>
         </div>
         <ImageInput
           name="UploadProductImages"

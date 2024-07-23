@@ -43,7 +43,18 @@ model products{
      Price String
       SellingPrice String
       Title String @unique
+      category String
+      Type String
        imageUrls  String[]
         createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model category{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String @unique
+  imageUrls  String[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
 }

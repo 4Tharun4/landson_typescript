@@ -7,8 +7,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Bell } from "lucide-react";
-
+import Image from "next/image";
+import { useSession } from 'next-auth/react';
 const Navbar = () => {
+  const { data: session, status } = useSession();
   return (
     <div className=" flex justify-between">
 <div className="">
@@ -32,9 +34,14 @@ const Navbar = () => {
 </div>
 <div className="">
 <DropdownMenu>
-  <DropdownMenuTrigger>Open</DropdownMenuTrigger>
+  <DropdownMenuTrigger className="">
+    <Image src={'https://utfs.io/f/642bc413-f070-4995-9884-011c2264a494-byglya.png'} alt="test image" width={100} height={100} className="h-10 w-10 rounded-full"/>
+  </DropdownMenuTrigger>
   <DropdownMenuContent className="w-60">
-    <DropdownMenuLabel >My Account</DropdownMenuLabel>
+    <DropdownMenuLabel className="text-xl">{session?.user.UserName}
+    <p className="text-[10px]">{session?.user.role}</p>
+    </DropdownMenuLabel>
+    
     <DropdownMenuSeparator />
     <DropdownMenuItem>Profile</DropdownMenuItem>
     <DropdownMenuItem>Billing</DropdownMenuItem>

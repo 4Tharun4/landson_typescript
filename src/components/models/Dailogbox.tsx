@@ -25,14 +25,14 @@ interface DialogBoxProps {
 
 const Dailogbox: React.FC<DialogBoxProps> = ({ title, desc, triger, open, setOpen, BtnText, children, onclick }) => {
   return (
-    <AlertDialog  open={open} onOpenChange={setOpen}>
+    <AlertDialog   open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger className='' asChild>
         <button onClick={onclick}>{triger}</button>
       </AlertDialogTrigger>
-      <AlertDialogContent className=''>
+      <AlertDialogContent className='w-full   '>
         <AlertDialogTitle>{title}</AlertDialogTitle>
-        <AlertDialogDescription>{desc}</AlertDialogDescription>
-        {children} {/* Render the children prop */}
+        <AlertDialogDescription>{children}</AlertDialogDescription>
+         {/* Render the children prop */}
         <AlertDialogAction>
           <button onClick={() => setOpen(false)}>{BtnText}</button>
         </AlertDialogAction>
