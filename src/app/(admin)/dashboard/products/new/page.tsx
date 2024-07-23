@@ -8,6 +8,8 @@ import TextArea from '@/components/FormInputs/TextArea';
 import ImageInput from '@/components/FormInputs/Image';
 import { ApiResponse } from '@/types/ApiResponse';
 import axios from 'axios';
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+
 import toast from 'react-hot-toast';
 
 const MyForm: React.FC = () => {
@@ -25,7 +27,7 @@ const MyForm: React.FC = () => {
     try {
      const response =  await axios.post<ApiResponse>('/api/productupload',data);
       console.log(response);
-    toast.success("User Created Scussfully");
+    toast.success("Producted Updated Scussfully");
 
     
   setissubmitting(false)
@@ -36,7 +38,7 @@ const MyForm: React.FC = () => {
       
     }
 
-    alert("Success");
+    
   };
 
   return (

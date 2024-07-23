@@ -7,7 +7,7 @@ import Image from 'next/image';
 interface ImageInputProps {
   name: string;
   label: string;
-  endpoint: string;
+  endpoint: 'ProductimageUploader';
   className?: string;
   SetImageUrls: React.Dispatch<React.SetStateAction<string[]>>;
   imageUrls: string[];
